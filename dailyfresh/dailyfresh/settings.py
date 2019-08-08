@@ -125,11 +125,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.163.com'
 EMAIL_PORT = 25
 # 发送邮件的邮箱
-EMAIL_HOST_USER = 'wang_hao1231@163.com'
+EMAIL_HOST_USER = '[your email address]'
 # 在邮箱中设置的客户端授权密码
-EMAIL_HOST_PASSWORD = 'wanghao123'
+EMAIL_HOST_PASSWORD = '[客户端授权密码!!!]'
 # 收件人看到的发件人
-EMAIL_FROM = '王浩<wang_hao1231@163.com>'
+EMAIL_FROM = '[your name]<[your email address]>'
 
 # django缓存设置，设置redis作为缓存数据库
 CACHES = {
