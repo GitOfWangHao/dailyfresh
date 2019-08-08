@@ -1,0 +1,52 @@
+{% extends 'base_user_center.html' %}
+{% load staticfiles %}
+{% block title %}天天生鲜-订单评价{% endblock title %}
+{% block page_title %}用户中心{% endblock page_title %}
+
+
+{% block right_content %}
+<div class="right_content clearfix">
+    <h3 class="common_title2">订单评价</h3>
+    <ul class="order_list_th w978 clearfix">
+        <li class="col01">{{order.create_time}}</li>
+        <li class="col02">订单号：{{order.order_id}}</li>
+        <li class="col02 stress">{{order.status_name}}</li>
+    </ul>
+    {% for order_sku in order.order_skus %}
+    <table class="order_list_table w980">
+        <tbody>
+            <tr>
+                <td width="55%">
+
+                    <ul class="order_goods_list clearfix">
+                        <li class="col01"><img src="{{nginx_url}}{{order_sku.sku.image.url}}"></li>
+                        <li class="col02">{{order_sku.name}}<em>{{order_sku.price}}元/{{order_sku.sku.unite}}g</em></li>
+                        <li class="col03">{{order_sku.count}}</li>
+                    </ul>
+
+                </td>
+                <td width="15%">{{order_sku.amount}} 元</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="form_group form_group2 site_con">
+        <form method="post">  {# action没有填默认但前地址，带有order_id #}
+            {% csrf_token %}
+            <input type="hidden" name="order_goods_id" value="{{order_sku.id}}">
+            <div class="form_group form_group2">
+                <label>评论：</label>
+                {% if order_sku.comment == "False" %}
+                <textarea class="site_area" name="comment"  ></textarea>
+                {% else %}
+                <textarea class="site_area" name="comment"  >{{order_sku.comment}}</textarea>
+                {% endif %}
+
+            </div>
+            <input type="submit" name="" value="提交/修改" class="info_submit">
+
+        </form>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock right_content %}
