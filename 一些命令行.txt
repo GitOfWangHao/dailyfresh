@@ -1,0 +1,36 @@
+已用的端口
+	80：返回静态文件 index.html
+	8888:ngnix返回fastdfs
+	8080:uwsgi做服务器
+
+redis
+	sudo redis-server /etc/redis/redis.conf 
+打开redis客户端  redis-cli
+启动nginx
+	sudo /usr/local/nginx/sbin/nginx
+停止
+	sudo /usr/local/nginx/sbin/nginx -s stop
+启动tracker 和 storage
+	sudo service fdfs_trackerd start
+	sudo service fdfs_storaged start
+
+celery worker 启动
+	celery -A celery_tasks.tasks worker -l info
+
+fast dfs---使用的到的本地ip
+	1.编辑/etc/fdfs/storage.conf配置文件  sudo vim /etc/fdfs/storage.conf
+	tracker_server=自己ubuntu虚拟机的ip地址:22122
+	2.编辑/etc/fdfs/client.conf配置文件  sudo vim /etc/fdfs/client.conf
+	tracker_server=自己ubuntu虚拟机的ip地址:22122
+	3.sudo vim /etc/fdfs/mod_fastdfs.conf
+	tracker_server=自己ubuntu虚拟机的ip地址:22122
+	4.工程fastdfs对应包下的client.conf
+	tracker_server=自己ubuntu虚拟机的ip地址:22122
+	
+使用celery生成静态html加快访问速度与减轻服务器、数据库压力，
+生成的HTML在celery的worker工程下，同时要在NGINX配置80端口，
+直接输入ip地址访问的就是80端口，配置静态问价路径
+mysql---解决并行访问数据库时，使用乐观锁需要修改mysql	设置mysql事务的隔离级别
+
+启动:uwsgi –-ini 配置文件路径 例如: uwsgi --ini uwsgi.ini
+停止:uwsgi --stop uwsgi.pid路径 例如:uwsgi –-stop uwsgi.pid
